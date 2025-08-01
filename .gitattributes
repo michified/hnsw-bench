@@ -1,1 +1,3 @@
 dataset.txt filter=lfs diff=lfs merge=lfs -text
+queries.txt filter=lfs diff=lfs merge=lfs -text
+topk.txt filter=lfs diff=lfs merge=lfs -text
