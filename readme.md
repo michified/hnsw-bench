@@ -87,10 +87,10 @@ while (not stack.empty()) {
 
 ## 🔧 Technical Lessons  
 1. **Debugging Wins**:  
-   - Fixed race conditions in 24-thread graph construction  
+   - Fixed unsafe parallel access of data structures in 24-thread graph construction by serializing edge addition
    - Discovered QPS calculation error through validating results with theory  
 2. **Algorithmic Insights**:  
-   - BFS recall improves with `k` (64.5% → 99.6%)  
+   - Stack-based HNSW recall improves with `k` (64.5% → 99.6%)  
    - Unprioritized search hurts single-neighbor accuracy  
 3. **Scaling For Production**
    - Techniques used in competitive programming are less applicable to production environments
@@ -109,7 +109,8 @@ Note: all of these are for k=100
 
 ## Dependencies: 
 - g++12 compiler with C++23
-- Python 3.12.10 or later for visualization
+- Python 3.12.10 or later
+- hnswlib and annoy libraries for python
 
 ---
 
