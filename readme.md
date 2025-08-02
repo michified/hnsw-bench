@@ -61,6 +61,7 @@ while (not stack.empty()) {
 
 ## 📊 Results  
 ### Performance Comparison  
+#### CPU: 13th Gen Intel(R) Core(TM) i7-13700K
 | Method   | k   | Build Time (s) | Query Time (μs) | QPS (aggregate)  | Recall (%) |  
 |----------|-----|------------|-----------------|-------|------------|  
 | Naive    | 100 | 0        | 196,306         | 5     | 100.00     |  
