@@ -106,7 +106,7 @@ while (not stack.empty()) {
 3. To test the stack-HNSW: g++ grader_hnsw.cpp -o grader_hnsw.exe
 4. To test the Annoy ANN: python annoybench.py
 5. To test the production HNSW: python hnswbench.py
-Note: all of these are for k=100
+- Note: all of these are for k=100
 
 ## Dependencies  
 - GCC 12+ (`-std=c++23`)  
