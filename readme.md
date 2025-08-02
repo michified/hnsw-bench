@@ -19,9 +19,9 @@ This project benchmarks a **custom stack-based HNSW** against traditional ANN al
 ### 1. Algorithms  
 | Algorithm | Key Features | Implementation |  
 |-----------|--------------|----------------|  
-| Stack-HNSW | No `ef`/`M`, 24-core parallel build | Custom C++ (see code) |  
-| Annoy | `n_trees=10` | [Spotify's Annoy](https://github.com/spotify/annoy) |  
-| HNSWLib | Optimized beam search, `ef=100`, `M=16` (default) | [hnswlib](https://github.com/nmslib/hnswlib) | 
+| Stack-HNSW | Multi-threaded build (uses available CPU cores, benchmarking machine has 24), no beam search parameters | Custom C++ (see code) |  
+| Annoy | `n_trees=10` (balances accuracy/speed) | [Spotify's Annoy](https://github.com/spotify/annoy) |  
+| HNSWLib | `ef_construction=100`, `M=16`, `ef=50` | [hnswlib](https://github.com/nmslib/hnswlib) | 
 
 ### 2 Key Components
 | Component | Purpose | Advantage |
@@ -47,8 +47,11 @@ while (not stack.empty()) {
 
 ### 3. Dataset & Ground Truth  
 - **Fashion MNIST**: 60K train vectors (784D) used as the search space, 10K test queries  
-- **Preprocessing**: Values normalized to `[0, 255]` (space-separated, see dataset.txt, queries.txt, topk.txt)
-- **Ground Truth**: Exact top-100 neighbors via brute-force (`groundTruth.cpp`)  
+- **Preprocessing**: Values normalized to `[0, 255]` (space-separated files in `strategies\data\`)
+  - `dataset.txt`: 60K training vectors
+  - `queries.txt`: 10K query vectors
+  - `topk.txt`: Ground truth top-100 neighbors for each query
+- **Ground Truth**: Exact top-100 neighbors via brute-force (`strategies\data\groundTruth.c++`)
 
 ### 4. Key Ideas  
 - **(Simulated) DFS Graph Traversal**: Replaces beam search priority queues with simple monotonic stacks  
@@ -69,10 +72,10 @@ while (not stack.empty()) {
 | Annoy    | 100 | 3.7      | 718             | 1,393 | 81.71      |  
 | HNSWLib  | 100 | 3.0      | 296             | 3,383 | 99.15      |  
 
-![Recall Scaling](graphs/performance_comparison.png)  
+![Recall Scaling](graphs\performance_comparison.png)  
 *Stack-HNSW achieves near-perfect recall at scale despite simpler design.*
 
-![Build Time](graphs/build_times_comparison.png)  
+![Build Time](graphs\build_times_comparison.png)  
 *Stack-HNSW lags significantly because of its simplicity and lack of optimization*
 
 ### 🔍 Insights  
@@ -103,16 +106,36 @@ while (not stack.empty()) {
 ### 🚀 How To Reproduce
 
 1. Clone this repo
-2. To test the naive algorithm: g++ naive.cpp -o naive.exe
-3. To test the stack-HNSW: g++ grader_hnsw.cpp -o grader_hnsw.exe
-4. To test the Annoy ANN: python annoybench.py
-5. To test the production HNSW: python hnswbench.py
-- Note: all of these are for k=100
+2. Install Python dependencies:
+   ```bash
+   pip install numpy pandas matplotlib annoy hnswlib
+   ```
+3. Run benchmarks:
+   ```powershell
+   # Compile and run C++ implementations
+   g++ strategies\naive.c++ -o strategies\naive.exe
+   g++ strategies\grader_hnsw.cpp -o strategies\grader_hnsw.exe
+   strategies\naive.exe
+   strategies\grader_hnsw.exe
+
+   # Run Python implementations
+   python strategies\annoybench.py
+   python strategies\hnswbench.py
+   ```
+Note: All benchmarks are configured for k=100 nearest neighbors by default.
 
 ## Dependencies  
-- GCC 12+ (`-std=c++23`)  
-- Python 3.12+ (for plots)  
-- OpenMP (for parallel build)
+### C++
+- GCC 12+ with C++17 support
+- Standard Template Library (STL)
+
+### Python
+- Python 3.8+
+- NumPy
+- Pandas
+- Matplotlib
+- Annoy (Spotify's ANN library)
+- hnswlib (Production HNSW implementation)
 ---
 
 ### 📖 References
