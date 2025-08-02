@@ -72,10 +72,10 @@ while (not stack.empty()) {
 | Annoy    | 100 | 3.7      | 718             | 1,393 | 81.71      |  
 | HNSWLib  | 100 | 3.0      | 296             | 3,383 | 99.15      |  
 
-![Recall Scaling](graphs\performance_comparison.png)  
+![Recall Scaling](graphs/performance_comparison.png)  
 *Stack-HNSW achieves near-perfect recall at scale despite simpler design.*
 
-![Build Time](graphs\build_times_comparison.png)  
+![Build Time](graphs/build_times_comparison.png)  
 *Stack-HNSW lags significantly because of its simplicity and lack of optimization*
 
 ### 🔍 Insights  
