@@ -31,7 +31,7 @@ build_time = build_end - build_start
 index = hnswlib.Index(space='l2', dim=dimension)
 index.load_index('strategies\\fashion-mnist.hnsw', max_elements=num_vectors)
 
-index.set_ef(100)
+index.set_ef(50)
 
 queries = []
 with open("strategies\\data\\queries.txt", "r") as f:

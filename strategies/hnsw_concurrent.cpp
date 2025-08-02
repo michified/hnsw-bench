@@ -1,5 +1,12 @@
-#include <bits/stdc++.h>
+#include <vector>
+#include <unordered_map>
+#include <stack>
+#include <set>
+#include <shared_mutex>
+#include <utility>
+#include <algorithm>
 #include <thread>
+#include <cstdlib>  // for rand()
 using namespace std;
 
 struct HNSWNode {
