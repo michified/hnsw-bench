@@ -61,12 +61,12 @@ while (not stack.empty()) {
 
 ## 📊 Results  
 ### Performance Comparison  
-| Method   | k   | Build Time | Query Time (μs) | QPS   | Recall (%) |  
+| Method   | k   | Build Time (s) | Query Time (μs) | QPS (aggregate)  | Recall (%) |  
 |----------|-----|------------|-----------------|-------|------------|  
-| Naive    | 100 | 0s         | 196,306         | 5     | 100.00     |  
-| Stack-HNSW | 100 | 54.4s      | 12,148          | 82    | **99.64**  |  
-| Annoy    | 100 | 3.7s       | 718             | 1,393 | 81.71      |  
-| HNSWLib  | 100 | 3.0s       | 296             | 3,383 | 99.15      |  
+| Naive    | 100 | 0        | 196,306         | 5     | 100.00     |  
+| Stack-HNSW | 100 | 54.4   | 12,148          | 82    | **99.64**  |  
+| Annoy    | 100 | 3.7      | 718             | 1,393 | 81.71      |  
+| HNSWLib  | 100 | 3.0      | 296             | 3,383 | 99.15      |  
 
 ![Recall Scaling](graphs/performance_comparison.png)  
 *Stack-HNSW achieves near-perfect recall at scale despite simpler design.*
@@ -76,7 +76,8 @@ while (not stack.empty()) {
 
 ### 🔍 Insights  
 1. **Monotonic Stack Trade-offs**:  
-   - ✅ **99.6% recall@100** (outperforms Annoy)  
+   - ✅ **99.6% recall@100**: My stack-HNSW may have some usecases where k is large, recall is paramount, but query/build times are not too important (outperforms both Annoy and hnswlib)
+      - This means that **Beam Search is not mandatory**
    - ⚠️ **64.5% recall@1** (vs. 99.1% for HNSWLib), although many (~92%) are in the top-10 nearest
    - ⚠️ **Scaling Behavior** O(k log d), compared to O(log kd) for logarithmic using beam search
 2. **Annoy's Limits**: 81.7% recall@100 shows tree-based ANN struggles in high dimensions
@@ -103,15 +104,14 @@ while (not stack.empty()) {
 1. Clone this repo
 2. To test the naive algorithm: g++ naive.cpp -o naive.exe
 3. To test the stack-HNSW: g++ grader_hnsw.cpp -o grader_hnsw.exe
-4. To test the annoy ANN: python annoybench.py
+4. To test the Annoy ANN: python annoybench.py
 5. To test the production HNSW: python hnswbench.py
 Note: all of these are for k=100
 
-## Dependencies: 
-- g++12 compiler with C++23
-- Python 3.12.10 or later
-- hnswlib and annoy libraries for python
-
+## Dependencies  
+- GCC 12+ (`-std=c++23`)  
+- Python 3.12+ (for plots)  
+- OpenMP (for parallel build)
 ---
 
 ### 📖 References
