@@ -139,4 +139,4 @@ Note: All benchmarks are configured for k=100 nearest neighbors by default.
 ---
 
 ### 📖 References
-- **HNSW Paper**: arXiv:1603.09320
+- Malkov, Y.A., Yashunin, D.A. (2016). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs. arXiv preprint [arXiv:1603.09320](https://arxiv.org/abs/1603.09320).
