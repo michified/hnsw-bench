@@ -103,6 +103,13 @@ while (not stack.empty()) {
 
 ---
 
+## 🎓 Future Work
+- **Testing on Other Datasets**: Benchmark performance of larger or lower-dimension datasets with the other methods
+- **Further Optimization**: To see whether recall can be maintained while improving query times
+- **Parallelization on Queries**: Investigate whether splitting queries across cores offers a speedup
+
+---
+
 ### 🚀 How To Reproduce
 
 1. Clone this repo
@@ -136,6 +143,7 @@ Note: All benchmarks are configured for k=100 nearest neighbors by default.
 - Matplotlib
 - Annoy (Spotify's ANN library)
 - hnswlib (Production HNSW implementation)
+
 ---
 
 ### 📖 References
