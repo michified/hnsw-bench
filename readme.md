@@ -1,6 +1,8 @@
 # Monotonic stack-HNSW vs. Annoy vs. Production HNSW vs. Naive Search Benchmark
 **A Non-Standard HNSW Implementation for High-Recall Applications in ANN scenarios**  
 
+---
+
 ## 📌 Overview  
 This project benchmarks a **custom stack-based HNSW** against traditional ANN algorithms on Fashion MNIST:  
 - **Monotonic stack-HNSW**: My parallel implementation with breadth-first search (no beam search)  
@@ -77,6 +79,8 @@ while (not stack.empty()) {
 
 ![Build Time](graphs/build_times_comparison.png)  
 *Stack-HNSW lags significantly because of its simplicity and lack of optimization*
+
+---
 
 ### 🔍 Insights  
 1. **Monotonic Stack Trade-offs**:  
