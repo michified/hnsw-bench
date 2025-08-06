@@ -110,7 +110,11 @@ while (not stack.empty()) {
    ```bash
    pip install numpy pandas matplotlib annoy hnswlib
    ```
-3. Run benchmarks:
+3. Navigate to the strategies directory:
+   ```bash
+   cd strategies
+   ```
+4. Run benchmarks:
    ```powershell
    # Compile and run C++ implementations
    g++ strategies\naive.c++ -o strategies\naive.exe
