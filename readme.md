@@ -1,6 +1,8 @@
 # Monotonic stack-HNSW vs. Annoy vs. Production HNSW vs. Naive Search Benchmark
 **A Non-Standard HNSW Implementation for High-Recall Applications in ANN scenarios**  
 
+---
+
 ## 📌 Overview  
 This project benchmarks a **custom stack-based HNSW** against traditional ANN algorithms on Fashion MNIST:  
 - **Monotonic stack-HNSW**: My parallel implementation with breadth-first search (no beam search)  
@@ -78,6 +80,8 @@ while (not stack.empty()) {
 ![Build Time](graphs/build_times_comparison.png)  
 *Stack-HNSW lags significantly because of its simplicity and lack of optimization*
 
+---
+
 ### 🔍 Insights  
 1. **Monotonic Stack Trade-offs**:  
    - ✅ **99.6% recall@100**: My stack-HNSW may have some usecases where k is large, recall is paramount, but query/build times are not too important (outperforms both Annoy and hnswlib)
@@ -100,6 +104,13 @@ while (not stack.empty()) {
 3. **Scaling For Production**
    - Techniques used in competitive programming are less applicable to production environments
    - Same goes for the reverse: production techniques incur errors which are unacceptable in competition conditions
+
+---
+
+## 🎓 Future Work
+- **Testing on Other Datasets**: Benchmark performance of larger or lower-dimension datasets with the other methods
+- **Further Optimization**: To see whether recall can be maintained while improving query times
+- **Parallelization on Queries**: Investigate whether splitting queries across cores offers a speedup
 
 ---
 
@@ -140,6 +151,7 @@ Note: All benchmarks are configured for k=100 nearest neighbors by default.
 - Matplotlib
 - Annoy (Spotify's ANN library)
 - hnswlib (Production HNSW implementation)
+
 ---
 
 ### 📖 References
